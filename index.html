@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>El Mineral - Air Isi Ulang</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.45);
+      min-height: 100vh;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+    .tagline {
+      margin-bottom: 30px;
+      font-size: 18px;
+      opacity: 0.9;
+      text-align: center;
+    }
+    .order-btn {
+      background: #00c853;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .product {
+      background: rgba(0,0,0,0.6);
+      padding: 20px 30px;
+      border-radius: 20px;
+      display: none;
+      margin-bottom: 20px;
+    }
+    .product button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      background: #00b0ff;
+      color: #fff;
+    }
+    .chatbox {
+      display: none;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 20px;
+      width: 320px;
+    }
+    .chatbox input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+    }
+    .chatbox button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 20px;
+      border: none;
+      background: #00c853;
+      color: #fff;
+      cursor: pointer;
+    }
+    footer {
+      position: fixed;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <h1>EL MINERAL</h1>
+  <div class="tagline">Bersih • Higienis • Praktis • Ramah Lingkungan</div>
+
+  <button class="order-btn" onclick="showProducts()">Pesan di sini</button>
+
+  <div class="product" id="productBox">
+    <button onclick="selectProduct('Air Isi Ulang')">Air Isi Ulang</button>
+    <button onclick="selectProduct('Air RO')">Air RO</button>
+  </div>
+
+  <div class="chatbox" id="chatBox">
+    <div id="chatText">Silakan isi data pesanan 👇</div>
+    <input type="text" id="alamat" placeholder="Alamat lengkap">
+    <input type="number" id="jumlah" placeholder="Jumlah galon (min 3)">
+    <button onclick="sendOrder()">Kirim Pesanan via WhatsApp</button>
+  </div>
+</div>
+
+<footer>
+  <a href="https://instagram.com/el_minerall" target="_blank">Instagram El Mineral</a>
+</footer>
+
+<script>
+  let selectedProduct = "";
+
+  function showProducts() {
+    document.getElementById("productBox").style.display = "block";
+  }
+
+  function selectProduct(p) {
+    selectedProduct = p;
+    document.getElementById("productBox").style.display = "none";
+    document.getElementById("chatBox").style.display = "block";
+    document.getElementById("chatText").innerText = "Anda memilih: " + p;
+  }
+
+  function sendOrder() {
+    const alamat = document.getElementById("alamat").value.trim();
+    const jumlah = parseInt(document.getElementById("jumlah").value);
+
+    if (!alamat) {
+      alert("Alamat wajib diisi.");
+      return;
+    }
+    if (isNaN(jumlah) || jumlah < 3) {
+      alert("Minimal pemesanan 3 galon.");
+      return;
+    }
+
+    const pesan = `Halo El Mineral,%0ASaya mau pesan:%0AProduk: ${selectedProduct}%0AJumlah: ${jumlah} galon%0AAlamat: ${alamat}`;
+    const wa = "https://wa.me/6285136219507?text=" + pesan;
+    window.open(wa, "_blank");
+  }
+</script>
+</body>
+</html>
